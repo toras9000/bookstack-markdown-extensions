@@ -2,6 +2,7 @@
 
 use BookStack\Facades\Theme;
 use BookStack\Theming\ThemeEvents;
+use BookStack\Theming\ThemeViews;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
@@ -18,3 +19,9 @@ Theme::listen(ThemeEvents::COMMONMARK_ENVIRONMENT_CONFIGURE, function(Environmen
         ],
     ]);
 });
+
+// Register a module view
+Theme::listen(ThemeEvents::THEME_REGISTER_VIEWS, function (ThemeViews $themeViews) {
+    $themeViews->renderAfter('layouts.parts.custom-head', 'markdown-extensions-import-scripts', 10);
+});
+
